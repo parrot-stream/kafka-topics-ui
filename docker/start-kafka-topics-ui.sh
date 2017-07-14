@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PROXY_SKIP_VERIFY="${PROXY_SKIP_VERIFY:-false}"
 MAX_BYTES="${MAX_BYTES:-50000}"
@@ -26,7 +26,7 @@ if [[ -z "$KAFKA_REST_PROXY_URL" ]]; then
     echo "Kafka REST Proxy URL was not set via KAFKA_REST_PROXY_URL environment variable."
 else
     echo "Kafka REST Proxy URL to $KAFKA_REST_PROXY_URL."
-    cat <<EOF >kafka-topics-ui/env.js
+    cat <<EOF >kafka-topics-ui/dist/env.js
 var clusters = [
    {
      NAME:"default",

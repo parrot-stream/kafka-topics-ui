@@ -1,27 +1,22 @@
-# kafka-topics
+# Kafka Topics UI
 
-[![release](http://github-release-version.herokuapp.com/github/landoop/kafka-topics-ui/release.svg?style=flat)](https://github.com/landoop/kafka-topics-ui/releases/latest)
-[![docker](https://img.shields.io/docker/pulls/landoop/kafka-topics-ui.svg?style=flat)](https://hub.docker.com/r/landoop/kafka-topics-ui/)
-[![Join the chat at https://gitter.im/Landoop/support](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/Landoop/support?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+This is a fork ot the Landoop project: a tool to browse Kafka topics and understand what's happening on your cluster. Find topics / view topic metadata / browse topic data (kafka messages) / view topic configuration / download data. This is a web tool for the [confluentinc/kafka-rest proxy](https://github.com/confluentinc/kafka-rest).
 
-Browse Kafka topics and understand what's happening on your cluster. Find topics / view topic metadata / browse topic data (kafka messages) / view topic configuration / download data. This is a web tool for the [confluentinc/kafka-rest proxy](https://github.com/confluentinc/kafka-rest).
-
-## Live Demo
-[kafka-topics-ui.landoop.com](http://kafka-topics-ui.landoop.com)
-
-## Running it
+## Running it with docker
 
 ```
-    docker pull landoop/kafka-topics-ui
+    docker pull parrotcdc/kafka-topics-ui
     docker run --rm -it -p 8000:8000 \
                -e "KAFKA_REST_PROXY_URL=http://kafka-rest-proxy-host:port" \
                -e "PROXY=true" \
                landoop/kafka-topics-ui
 ```
 
-**Config:** If you don't use our docker image, keep in mind that `Kafka-REST-Proxy`
-CORS support can be a bit buggy, so if you have trouble setting it up, you may need
-to provide CORS headers through a proxy (i.e. nginx).
+## Running it with docker-compose
+
+```
+    docker-compose -f docker/docker-compose.yml up
+```
 
 **Note:** The schema-registry is optional and topics are attempted to be read using Avro,
 then fall back to JSON, and finally fall back to Binary.
@@ -29,7 +24,7 @@ then fall back to JSON, and finally fall back to Binary.
 ## Build from source
 
 ```
-    git clone https://github.com/Landoop/kafka-topics-ui.git
+    git clone https://github.com/parrotcdc/kafka-topics-ui.git
     cd kafka-topics-ui
     npm install -g bower
     npm install
@@ -88,7 +83,7 @@ var clusters = [
 ### CP Version support
 Latest release is for CP 3.2.0 and above.
 
-For versions older than CP 3.2.0 you will need kafka topics ui [version 0.8.3](https://github.com/Landoop/kafka-topics-ui/releases/tag/v0.8.3).
+For versions older than CP 3.2.0 you will need Kafka Topics UI [version 0.8.3](https://github.com/parrotcdc/kafka-topics-ui/releases/tag/v0.8.3).
 You can also build it from source by running:
 ```
     git clone https://github.com/Landoop/kafka-topics-ui.git
@@ -105,9 +100,8 @@ fail to return messages for large topics. Although the default value is `1000`,
 a bug in the Kafka REST code prevents you from manually setting (depending on
 some other consumer options) a value lower than `30000`.
 
-
 ## Changelog
-[Here](https://github.com/Landoop/kafka-topics-ui/releases)
+[Here](https://github.com/parrotcdc/kafka-topics-ui/releases)
 
 ## License
 
@@ -115,11 +109,5 @@ The project is licensed under the [BSL](http://www.landoop.com/bsl) license.
 
 ## Relevant Projects
 
-* [schema-registry-ui](https://github.com/Landoop/schema-registry-ui), View, create, evolve and manage your Avro Schemas for multiple Kafka clusters
-* [kafka-connect-ui](https://github.com/Landoop/kafka-connect-ui), Set up and manage connectors for multiple connect clusters
-* [fast-data-dev](https://github.com/Landoop/fast-data-dev), Docker for Kafka developers (schema-registry,kafka-rest,zoo,brokers,landoop) 
-* [Landoop-On-Cloudera](https://github.com/Landoop/Landoop-On-Cloudera), Install and manage your kafka streaming-platform on you Cloudera CDH cluster
-
-
-
-<img src="http://www.landoop.com/images/landoop-dark.svg" width="13" /> www.landoop.com
+* [Schema Registry UI](https://github.com/parrotcdc/schema-registry-ui), View, create, evolve and manage your Avro Schemas for multiple Kafka clusters
+* [Kafka Connect UI](https://github.com/parrotcdc/kafka-connect-ui), Set up and manage connectors for multiple connect clusters

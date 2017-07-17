@@ -5,7 +5,7 @@ This is a fork ot the Landoop project: a tool to browse Kafka topics and underst
 ## Running it with docker
 
 ```
-    docker pull parrotcdc/kafka-topics-ui
+    docker pull parrot-stream/kafka-topics-ui
     docker run --rm -it -p 8000:8000 \
                -e "KAFKA_REST_PROXY_URL=http://kafka-rest-proxy-host:port" \
                -e "PROXY=true" \
@@ -24,7 +24,7 @@ then fall back to JSON, and finally fall back to Binary.
 ## Build from source
 
 ```
-    git clone https://github.com/parrotcdc/kafka-topics-ui.git
+    git clone https://github.com/parrot-stream/kafka-topics-ui.git
     cd kafka-topics-ui
     npm install -g bower
     npm install
@@ -83,10 +83,10 @@ var clusters = [
 ### CP Version support
 Latest release is for CP 3.2.0 and above.
 
-For versions older than CP 3.2.0 you will need Kafka Topics UI [version 0.8.3](https://github.com/parrotcdc/kafka-topics-ui/releases/tag/v0.8.3).
+For versions older than CP 3.2.0 you will need Kafka Topics UI [version 0.8.3](https://github.com/parrot-stream/kafka-topics-ui/releases/tag/v0.8.3).
 You can also build it from source by running:
 ```
-    git clone https://github.com/Landoop/kafka-topics-ui.git
+    git clone https://github.com/parrot-stream/kafka-topics-ui.git
     cd kafka-topics-ui
     git checkout tags/v0.8.3 -b v0.8.3
     npm install -g bower
@@ -101,7 +101,7 @@ a bug in the Kafka REST code prevents you from manually setting (depending on
 some other consumer options) a value lower than `30000`.
 
 ## Changelog
-[Here](https://github.com/parrotcdc/kafka-topics-ui/releases)
+[Here](https://github.com/parrot-stream/kafka-topics-ui/releases)
 
 ## License
 
@@ -109,5 +109,5 @@ The project is licensed under the [BSL](http://www.landoop.com/bsl) license.
 
 ## Relevant Projects
 
-* [Schema Registry UI](https://github.com/parrotcdc/schema-registry-ui), View, create, evolve and manage your Avro Schemas for multiple Kafka clusters
-* [Kafka Connect UI](https://github.com/parrotcdc/kafka-connect-ui), Set up and manage connectors for multiple connect clusters
+* [Schema Registry UI](https://github.com/parrot-stream/schema-registry-ui), View, create, evolve and manage your Avro Schemas for multiple Kafka clusters
+* [Kafka Connect UI](https://github.com/parrot-stream/kafka-connect-ui), Set up and manage connectors for multiple connect clusters

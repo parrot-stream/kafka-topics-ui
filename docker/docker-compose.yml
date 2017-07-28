@@ -1,6 +1,6 @@
 version: '3'
 services:
-  kafka-connect-ui:
+  kafka-topics-ui:
     build:
       context: ..
       dockerfile: Dockerfile
@@ -10,7 +10,8 @@ services:
     ports:
     - 8000:8000
     environment:
-      CONNECT_URL: http://kafka-topics:8083
+      KAFKA_REST_PROXY_URL: http://kafka:8082
+      PROXY: "true"
 networks:
   default:
     external:

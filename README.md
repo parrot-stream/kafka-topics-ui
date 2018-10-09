@@ -54,4 +54,4 @@ The project is licensed under the [BSL](http://www.landoop.com/bsl) license.
 
 ## Available tags:
 
-- Kafka Connect UI 0.9.6 ([0.9.6](https://github.com/parrot-stream/kafka-connect-ui/blob/0.9.6/Dockerfile), [latest](https://github.com/parrot-stream/kafka-connect-ui/blob/latest/Dockerfile))
+- Kafka Topics UI 0.9.6 ([0.9.4](https://github.com/parrot-stream/kafka-topics-ui/blob/0.9.4/Dockerfile), [latest](https://github.com/parrot-stream/kafka-topics-ui/blob/latest/Dockerfile))

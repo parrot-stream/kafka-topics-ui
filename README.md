@@ -28,7 +28,7 @@ In the docker-compose.yml you can update the following environment variables:
 
   - `KAFKA_REST_PROXY_URL`: the URL to point to Kafka Rest Proxy
   - `PROXY`: set to `true` the URL to point to Kafka Rest Proxy
-  - `PORT`: the docker internal port to expose the Kafka Topics UI. Remember to change 
+  - `PORT`: the docker internal port to expose the Kafka Topics UI. Remember to change the port mapping in the docker-compose.yml
   - `MAX_BYTES`: to set the default maximum amount of bytes to fetch from each topic
   - `RECORD_POLL_TIMEOUT`: to set the timeout in ms
   - `COLOR`: to set different header colors for each set up cluster

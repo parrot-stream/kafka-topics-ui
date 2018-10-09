@@ -1,19 +1,20 @@
 version: '3'
 services:
-  kafka-connect-ui:
+  kafka-topics-ui:
+    container_name: kafka-topics-ui
     build:
       context: ..
       dockerfile: Dockerfile
-    image: parrot-stream/kafka-topics-ui:0.9.2
-    networks:
-    - parrot
+    image: parrotstream/kafka-topics-ui:0.9.4
+    external_links:
+    - kafka
     ports:
-    - 8000:8000
+    - 8001:8001
     environment:
-      CONNECT_URL: http://kafka-topics:8083
+      KAFKA_REST_PROXY_URL: http://kafka:8082
+      PROXY: "true"
+      PORT: 8001
 networks:
   default:
     external:
-      name: parrot
-  parrot:
-    driver: bridge
+      name: parrot_default

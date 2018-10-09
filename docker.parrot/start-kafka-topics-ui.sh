@@ -4,7 +4,11 @@ PROXY_SKIP_VERIFY="${PROXY_SKIP_VERIFY:-false}"
 MAX_BYTES="${MAX_BYTES:-50000}"
 RECORD_POLL_TIMEOUT="${RECORD_POLL_TIMEOUT:-2000}"
 DEBUG_LOGS_ENABLED="${DEBUG_LOGS_ENABLED:-true}"
+PORT="${PORT:-8001}"
 INSECURE_PROXY=""
+
+cat /caddy/Caddyfile.template |
+        sed -e "s/8001/$PORT/" > /caddy/Caddyfile
 
 if echo "$PROXY_SKIP_VERIFY" | egrep -sq "true|TRUE|y|Y|yes|YES|1"; then
     INSECURE_PROXY=insecure_skip_verify
@@ -41,4 +45,4 @@ fi
 
 echo
 
-exec /caddy/caddy -conf /caddy/Caddyfile
+exec /caddy/caddy -conf /caddy/Caddyfile -quiet

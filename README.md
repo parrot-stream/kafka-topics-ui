@@ -1,135 +1,57 @@
-# Kafka Topics UI
+# **kafka-topics-ui**
+___
 
-This is a fork ot the Landoop project: a tool to browse Kafka topics and understand what's happening on your cluster. Find topics / view topic metadata / browse topic data (kafka messages) / view topic configuration / download data. This is a web tool for the [confluentinc/kafka-rest proxy](https://github.com/confluentinc/kafka-rest).
+### Description
+___
 
-## Running it with docker
+This image runs [**Kafka Topics UI**](https://github.com/Landoop/kafka-topics-ui.git).
 
-```
-    docker pull parrot-stream/kafka-topics-ui
-    docker run --rm -it -p 8000:8000 \
-               -e "KAFKA_REST_PROXY_URL=http://kafka-rest-proxy-host:port" \
-               -e "PROXY=true" \
-               landoop/kafka-topics-ui
-```
 
-## Running it with docker-compose
+You can pull it with:
 
-```
-    docker-compose -f docker/docker-compose.yml up
-```
+    docker pull parrotstream/kafka-topics-ui
 
-**Note:** The schema-registry is optional and topics are attempted to be read using Avro,
-then fall back to JSON, and finally fall back to Binary.
 
-## Build from source
+You can also find other images based on different Kafka Topics UI releases, using a different tag in the following form:
 
-```
-    git clone https://github.com/parrot-stream/kafka-topics-ui.git
-    cd kafka-topics-ui
-    npm install -g bower
-    npm install -g http-server
-    npm install
-    bower install
-    http-server -p 8080 .
-```
-Web UI will be available at `http://localhost:8080`
+    docker pull parrotstream/kafka-topics-ui:[kafka-topics-ui-release]
 
-### Nginx config
 
-If you use `nginx` to serve this ui, let angular manage routing with
-```
-    location / {
-      add_header 'Access-Control-Allow-Origin' "$http_origin" always;
-      add_header 'Access-Control-Allow-Credentials' 'true' always;
-      add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
-      add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
+Start with Docker Compose:
 
-      proxy_pass http://kafka-rest-server-url:8082;
-      proxy_redirect off;
+    docker-compose -p parrot -f docker.parrot/docker-compose.yml up
 
-      proxy_set_header  X-Real-IP  $remote_addr;
-      proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header  Host $http_host;
-    }
-```
 
-### Setup Kafka Rest clusters
+## Configuration
 
-Use multiple Kafka Rest clusters in `env.js` :
-```
-var clusters = [
-    {
-      NAME: "prod",
-      KAFKA_REST: "http://kafka-rest-ip:8082",
-      MAX_BYTES: "50000",
-      RECORD_POLL_TIMEOUT: "5000",
-      DEBUG_LOGS_ENABLED: true
-    },
-    {
-      NAME: "dev",
-      KAFKA_REST: "localhost",
-      MAX_BYTES: "50000",
-      COLOR: "#141414", // Optional
-      RECORD_POLL_TIMEOUT: "5000",
-      DEBUG_LOGS_ENABLED: true
-    }
-  ];
-```
+In the docker-compose.yml you can update the following environment variables:
 
-**Config**
+  - `KAFKA_REST_PROXY_URL`: the URL to point to Kafka Rest Proxy
+  - `PROXY`: set to `true` the URL to point to Kafka Rest Proxy
+  - `PORT`: the docker internal port to expose the Kafka Topics UI. Remember to change 
+  - `MAX_BYTES`: to set the default maximum amount of bytes to fetch from each topic
+  - `RECORD_POLL_TIMEOUT`: to set the timeout in ms
+  - `COLOR`: to set different header colors for each set up cluster
+  - `DEBUG_LOGS_ENABLED`: set to `true` to enable the debug logs
 
-* Use `MAX_BYTES` to set the default maximum amount of bytes to fetch from each topic.
-* Use `RECORD_POLL_TIMEOUT` to set the timeout in ms.
-* Use `COLOR` to set different header colors for each set up cluster.
-* Set `DEBUG_LOGS_ENABLED` to true to enable the debug logs.
+Once started you'll be able to access to the following UI:
 
-### CP Version support
-Latest release is for CP 3.2.0 and above.
+| **Kafka Topics UI**        |**URL**                   |
+|:---------------------------|:-------------------------|
+| *Kafka Topics UI*          | http://localhost:8001    |
 
-For versions older than CP 3.2.0 you will need Kafka Topics UI [version 0.8.3](https://github.com/parrot-stream/kafka-topics-ui/releases/tag/v0.8.3).
-You can also build it from source by running:
-```
-    git clone https://github.com/parrot-stream/kafka-topics-ui.git
-    cd kafka-topics-ui
-    git checkout tags/v0.8.3 -b v0.8.3
-    npm install -g bower
-    npm install
-    http-server .
-```
 
-**Important:** For Kafka REST Proxy 3.2.x you should set
-`consumer.request.timeout.ms=30000`. Without this option, Kafka REST Proxy will
-fail to return messages for large topics. Although the default value is `1000`,
-a bug in the Kafka REST code prevents you from manually setting (depending on
-some other consumer options) a value lower than `30000`.
+## Relevant Projects
 
-## Changelog
-[Here](https://github.com/parrot-stream/kafka-topics-ui/releases)
+* [Schema Registry UI](https://github.com/parrot-stream/schema-registry-ui), View, create, evolve and manage your Avro Schemas on your Kafka cluster
+* [Kafka Connect UI](https://github.com/parrot-stream/kafka-connect-ui), Set up and manage connectors for multiple connect clusters
 
-## Common Issues
-
-If having `"CONNECTIVITY ERROR" problems` make sure the file `kafka-rest.properties` has CORS enabled.
-To enable CORS add the following configuration to that file, and restart the backend Kafka-Rest
-
-```
-access.control.allow.methods=GET,POST,PUT,DELETE,OPTIONS
-access.control.allow.origin=*
-```
-
-If using a recent version of the Kafka-Topics-UI and Kafka-REST, make sure that you have properly configured
-Kafka-REST with the new consumer API. That requires setting up in the configuration of Kafka REST
-
-```
-bootstrap.servers=PLAINTEXT://ip-address-of-kafka-broker:9092
-```
-
-Make sure you restart Kafka REST after changing it's configuration files
 
 ## License
 
 The project is licensed under the [BSL](http://www.landoop.com/bsl) license.
 
-## Relevant Projects
 
-* [Schema Registry UI](https://github.com/parrot-stream/schema-registry-ui), View, create, evolve and manage your Avro Schemas for multiple Kafka clusters
-* [Kafka Connect UI](https://github.com/parrot-stream/kafka-connect-ui), Set up and manage connectors for multiple connect clusters
+## Available tags:
+
+- Kafka Connect UI 0.9.6 ([0.9.6](https://github.com/parrot-stream/kafka-connect-ui/blob/0.9.6/Dockerfile), [latest](https://github.com/parrot-stream/kafka-connect-ui/blob/latest/Dockerfile))

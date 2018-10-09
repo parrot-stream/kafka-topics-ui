@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile
-    image: parrotstream/kafka-topics-ui:0.9.4
+    image: parrotstream/kafka-topics-ui:latest
     external_links:
     - kafka
     ports:
